@@ -81,14 +81,8 @@ fn main() -> Result<(), String> {
 
         gl::UseProgram(shader);
 
-        let color_param = CString::new("out_color").unwrap();
-        gl::BindFragDataLocation(shader, 0, color_param.as_ptr());
-
-        let position_param = CString::new("position").unwrap();
-        let attrib_position = gl::GetAttribLocation(shader, position_param.as_ptr());
-
-        gl::EnableVertexAttribArray(attrib_position as GLuint);
-        gl::VertexAttribPointer(attrib_position as GLuint, 3, gl::FLOAT, gl::FALSE as GLboolean, 3 * size_of::<GLfloat>() as GLint, 0 as *const _);
+        gl::EnableVertexAttribArray(0);
+        gl::VertexAttribPointer(0, 3, gl::FLOAT, 0, 3 * size_of::<GLfloat>() as GLint, 0 as *const _);
     }
 
     let mut event_pump = sdl_context.event_pump()?;
@@ -136,7 +130,7 @@ static VS_SRC: &'static str =
 static FS_SRC: &'static str =
    "#version 150
     uniform float iTime;
-    out vec4 out_color;
+    out vec4 fragColor;
 
     float smin(float a, float b, float k)
     {
@@ -279,6 +273,6 @@ static FS_SRC: &'static str =
         color.rgb *= 0.7 + ambient * c2;
        }
     
-       out_color = color;
+       fragColor = color;
     }";
 
