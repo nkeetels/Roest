@@ -1,2 +1,2 @@
 # Roest
-A repository for experiments in Rust 
+A repository for experiments with SDL in Rust 
